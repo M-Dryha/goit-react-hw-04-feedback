@@ -13,8 +13,8 @@ export const App = () => {
 
   useEffect(() => {
     setTotalClick(bad + neutral + good);
-    setNewPercentage(totalClick ? ((good / totalClick) * 100).toFixed(0) : 0);
-  }, [bad, good, neutral, totalClick]);
+    setNewPercentage(((good / (bad + neutral + good)) * 100).toFixed(0));
+  }, [bad, good, neutral]);
 
   const onSelectUpdate = type => {
     const name = type.target.name;
@@ -36,7 +36,7 @@ export const App = () => {
     <div>
       <Section title="Please leave feedback">
         <FeedbackOptions
-          options={['bad', 'good', 'neutral']}
+          options={Object.keys({ good, neutral, bad })}
           onSelect={onSelectUpdate}
         />
       </Section>
